@@ -1,0 +1,128 @@
+{
+  "id": "2360596",
+  "name": "vue-blog",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "个人博客",
+  "glyphs": [
+    {
+      "icon_id": "21002949",
+      "name": "切换",
+      "font_class": "qiehuan",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "7794350",
+      "name": "学校名称",
+      "font_class": "xuexiaomingcheng",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "7968259",
+      "name": "地址",
+      "font_class": "dizhi",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "19802720",
+      "name": "学校官网",
+      "font_class": "xuexiaoguanwang",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "892611",
+      "name": "书",
+      "font_class": "shu",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "3561669",
+      "name": "点赞",
+      "font_class": "dianzan_active",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "11518889",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "11781975",
+      "name": "QQ",
+      "font_class": "QQ",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "13101382",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e712",
+      "unicode_decimal": 59154
+    },
+    {
+      "icon_id": "15274065",
+      "name": "B站",
+      "font_class": "Bzhan",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "15544803",
+      "name": "火箭",
+      "font_class": "huojian2",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "17297199",
+      "name": "火",
+      "font_class": "huo",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "5254452",
+      "name": "支付宝支付",
+      "font_class": "zhifubaozhifu",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "6288695",
+      "name": "支付宝支付",
+      "font_class": "zhifubaozhifu1",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "11820744",
+      "name": "支付-微信支付",
+      "font_class": "wechat-pay-fill",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "16996260",
+      "name": "微信支付",
+      "font_class": "wechat_pay",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "15435394",
+      "name": "赞赏",
+      "font_class": "zanshang",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    }
+  ]
+}
