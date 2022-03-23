@@ -18,7 +18,7 @@
     "moment": "^2.29.1",
     "nprogress": "^0.2.0",
     "regenerator-runtime": "^0.13.7",
-    "vditor": "^3.8.5",
+    "vditor": "^3.8.11",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
