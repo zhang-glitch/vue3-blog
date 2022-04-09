@@ -15,7 +15,7 @@
     "highlight.js": "^10.5.0",
     "marked": "^1.2.8",
     "mitt": "^2.1.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "nprogress": "^0.2.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.3",
