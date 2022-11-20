@@ -21,7 +21,7 @@
     "nprogress": "^0.2.0",
     "regenerator-runtime": "^0.13.7",
     "sass": "^1.52.1",
-    "vditor": "^3.8.5",
+    "vditor": "^3.8.13",
     "vue": "^3.2.23",
     "vue-echarts": "^6.0.0-rc.6",
     "vue-router": "^4.0.0-0",
