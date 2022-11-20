@@ -6,38 +6,51 @@
           <el-card class="list-card">
             <template #header>
               <div class="list-menu-wrapper row">
+                <!-- 文章tabs标题menu -->
                 <div class="card-header-left col-md-8">
-                  <el-menu class="list-menu"
-                           :default-active="listActiveIndex"
-                           mode="horizontal"
-                           @select="handleSelect">
-                    <el-menu-item v-for="item in tabsTitle"
-                                  :key="item.id"
-                                  :index="item.id+''">
+                  <el-menu
+                    class="list-menu"
+                    :default-active="listActiveIndex"
+                    mode="horizontal"
+                    @select="handleSelect"
+                  >
+                    <el-menu-item
+                      v-for="item in tabsTitle"
+                      :key="item.id"
+                      :index="item.id + ''"
+                    >
                       <i :class="item.iconName"></i>
-                      <span class="item-tab-title">{{item.tab}}</span>
+                      <span class="item-tab-title">{{ item.tab }}</span>
                     </el-menu-item>
                   </el-menu>
                 </div>
+                <!-- 切换文章列表排序按钮 -->
                 <div class="card-header-right col-md-4">
                   <i class="iconfont iconqiehuan"></i>
-                  <span class="change-rank-way"
-                        @click="handleRankWay">{{rankTitle}}</span>
+                  <span class="change-rank-way" @click="handleRankWay">{{
+                    rankTitle
+                  }}</span>
                 </div>
               </div>
             </template>
             <!-- 列表部分 -->
             <template v-if="articleList.length">
-              <article-list-item v-for="item in articleList"
-                                 :key="item.id"
-                                 :article="item"></article-list-item>
-              <load-more @handleLoadMore="handleLoadMore"
-                         :isLoadMore="isLoadMore"></load-more>
+              <article-list-item
+                v-for="item in articleList"
+                :key="item.id"
+                :article="item"
+              ></article-list-item>
+              <load-more
+                @handleLoadMore="handleLoadMore"
+                :isLoadMore="isLoadMore"
+              ></load-more>
             </template>
             <!-- 没有数据 -->
-            <el-empty v-else
-                      image="/empty.png"
-                      description="暂无数据"></el-empty>
+            <el-empty
+              v-else
+              image="/empty.png"
+              description="暂无数据"
+            ></el-empty>
           </el-card>
         </div>
         <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3 asist-bar">

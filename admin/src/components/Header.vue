@@ -10,28 +10,26 @@
       </a>
     </div>
     <div class="log-in-out">
-      <router-link to="/login"
-                   v-if="!isLogin"
-                   class="login-btn">
+      <router-link to="/login" v-if="!isLogin" class="login-btn">
         <el-button type="primary">登录</el-button>
       </router-link>
-      <el-button type="info"
-                 @click="logout">退出登录</el-button>
+      <el-button type="info" @click="logout">退出登录</el-button>
     </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
 import { ElMessage } from 'element-plus'
 import request from '../http/request'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
 export default defineComponent({
   name: 'Header',
   setup() {
     // 获取登录状态
-    const store = useStore()
-    const isLogin = computed(() => store.state.isLogin)
+    // const store = useStore()
+    // const isLogin = computed(() => store.state.isLogin)
+    const isLogin = !!window.localStorage.getItem('token')
     const logout = async () => {
       const data = await request({
         url: '/admin/logout',

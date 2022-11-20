@@ -4,16 +4,21 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
           <el-card shadow="always">
-            <el-tabs @tab-click="onTabClick"
-                     v-model="navIndex">
-              <el-tab-pane :label="item.tab"
-                           v-for="item in tabsTitle"
-                           :key="item.id">
-                <article-list-item v-for="element in articleList"
-                                   :key="element?.id"
-                                   :article="element"></article-list-item>
-                <load-more @handleLoadMore="handleLoadMore"
-                           :isLoadMore="isLoadMore"></load-more>
+            <el-tabs @tab-click="onTabClick" v-model="navIndex">
+              <el-tab-pane
+                :label="item.tab"
+                v-for="item in tabsTitle"
+                :key="item.id"
+              >
+                <article-list-item
+                  v-for="element in articleList"
+                  :key="element?.id"
+                  :article="element"
+                ></article-list-item>
+                <load-more
+                  @handleLoadMore="handleLoadMore"
+                  :isLoadMore="isLoadMore"
+                ></load-more>
               </el-tab-pane>
             </el-tabs>
           </el-card>

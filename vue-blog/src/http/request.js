@@ -4,6 +4,7 @@ import NProgress from 'nprogress'
 function request (config) {
   const instance = axios.create({
     baseURL: 'http://127.0.0.1:7001',
+    // baseURL: 'http://129.204.195.81:7001',
     timeout: 5000
   })
   // 添加加载条样式

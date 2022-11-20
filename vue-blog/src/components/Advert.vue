@@ -2,11 +2,11 @@
   <div class="school">
     <el-card shadow="always">
       <template #header>
-        <span class="school-title">广告位</span>
+        <span class="school-title">公司</span>
       </template>
       <div class="advert-img">
-        <a :href="advert.advLink">
-          <img :src="advert.image">
+        <a :href="advert.advLink" target="blank">
+          <img :src="advert.image" />
         </a>
       </div>
     </el-card>

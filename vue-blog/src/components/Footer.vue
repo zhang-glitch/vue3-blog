@@ -1,11 +1,7 @@
 <template>
   <div class="footer">
     <el-row>
-      <el-col :xs="0"
-              :sm="0"
-              :md="6"
-              :lg="6"
-              :xl="6">
+      <el-col :xs="0" :sm="0" :md="6" :lg="6" :xl="6">
         <div class="footer-content">
           <div class="footer-logo">
             <a href="/">
@@ -15,41 +11,41 @@
           </div>
           <div class="content">
             <p class="about-mark">@ 2021 <a href="/about">昊淼博客</a></p>
-            <p>记录美好的生活经历，欢迎交流 </p>
+            <p>记录美好的生活经历，欢迎交流</p>
           </div>
         </div>
       </el-col>
-      <el-col :xs="0"
-              :sm="24"
-              :md="18"
-              :lg="18"
-              :xl="18">
+      <el-col :xs="0" :sm="24" :md="18" :lg="18" :xl="18">
         <div class="tool-list">
-          <a class="tool-item"
-             :href="item.link"
-             v-for="item in toolsData"
-             :key="item.id"
-             @mousemove="moveItem(item.id)"
-             @mouseleave="leaveItem"
-             :style='{
-             backgroundColor:
-             `${
-             activeIndex===item.id
-             ?
-             item.bgColor
-             : ""
-             }`
-             }'>
-            <i className="tool-icon"
-               :style="{background: `url(${ activeIndex === item.id ? item.hoverIcon : item.icon})`}"></i>
+          <a
+            class="tool-item"
+            :href="item.link"
+            v-for="item in toolsData"
+            :key="item.id"
+            @mousemove="moveItem(item.id)"
+            @mouseleave="leaveItem"
+            :style="{
+              backgroundColor: `${activeIndex === item.id ? item.bgColor : ''}`,
+            }"
+          >
+            <i
+              className="tool-icon"
+              :style="{
+                background: `url(${
+                  activeIndex === item.id ? item.hoverIcon : item.icon
+                })`,
+              }"
+            ></i>
             <div className="tool-desc">
               <div className="hide-desc" />
-              <div className="inner"
-                   :style='{
-                   color: item.bgColor==="#fff" ? "#333" : ""
-                   }'>
-                <p className="name">{{item.name}}</p>
-                <p className="describe">{{item.describe}}</p>
+              <div
+                className="inner"
+                :style="{
+                  color: item.bgColor === '#fff' ? '#333' : '',
+                }"
+              >
+                <p className="name">{{ item.name }}</p>
+                <p className="describe">{{ item.describe }}</p>
               </div>
             </div>
           </a>
@@ -76,15 +72,15 @@ export default defineComponent({
         bgColor: '#2C2C32',
         link: 'https://code.visualstudio.com/',
       },
-      {
-        id: 2,
-        name: 'nextJs',
-        describe: '目前网站主要前端框架  React和NextJS！',
-        icon: '/footer/next-1.png',
-        hoverIcon: '/footer/next.png',
-        bgColor: '#fff',
-        link: 'https://www.nextjs.cn/',
-      },
+      // {
+      //   id: 2,
+      //   name: 'nextJs',
+      //   describe: '目前网站主要前端框架  React和NextJS！',
+      //   icon: '/footer/next-1.png',
+      //   hoverIcon: '/footer/next.png',
+      //   bgColor: '#fff',
+      //   link: 'https://www.nextjs.cn/',
+      // },
       {
         id: 3,
         name: 'PS',
@@ -94,15 +90,15 @@ export default defineComponent({
         bgColor: '#38c8fe',
         link: 'https://www.adobe.com/cn/products/photoshop.html',
       },
-      {
-        id: 4,
-        name: 'Ant Design',
-        describe: '我们网站大量使用的UI库，Antd yyds！🙏',
-        icon: '/footer/antd-1.png',
-        hoverIcon: '/footer/antd.png',
-        bgColor: '#1890ff',
-        link: 'https://ant.design/index-cn',
-      },
+      // {
+      //   id: 4,
+      //   name: 'Ant Design',
+      //   describe: '我们网站大量使用的UI库，Antd yyds！🙏',
+      //   icon: '/footer/antd-1.png',
+      //   hoverIcon: '/footer/antd.png',
+      //   bgColor: '#1890ff',
+      //   link: 'https://ant.design/index-cn',
+      // },
       {
         id: 5,
         name: '哔哩哔哩',
@@ -148,15 +144,15 @@ export default defineComponent({
         bgColor: '#3260f4',
         link: 'https://gaoding.com/',
       },
-      {
-        id: 10,
-        name: '和风天气',
-        describe: '白嫖的天气数据，真香！感谢和风天气！🙏',
-        icon: '/footer/hftq.png',
-        hoverIcon: '/footer/hftq.png',
-        bgColor: '#fff',
-        link: 'https://www.qweather.com/',
-      },
+      // {
+      //   id: 10,
+      //   name: '和风天气',
+      //   describe: '白嫖的天气数据，真香！感谢和风天气！🙏',
+      //   icon: '/footer/hftq.png',
+      //   hoverIcon: '/footer/hftq.png',
+      //   bgColor: '#fff',
+      //   link: 'https://www.qweather.com/',
+      // },
     ])
 
     // 当移入一个item时

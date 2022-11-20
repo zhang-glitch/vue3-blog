@@ -5,26 +5,26 @@
         <div class="item-meta">
           <div class="item-meta-content">
             <h4 class="title">
-              <el-tag class="type">{{article.type?.typeName}}</el-tag>
-              <a :href="`/detail?id=${article.id}`"
-                 target="_blank"
-                 v-html="title">
+              <el-tag class="type">{{ article.type?.typeName }}</el-tag>
+              <a
+                :href="`/detail?id=${article.id}`"
+                target="_blank"
+                v-html="title"
+              >
               </a>
             </h4>
             <div class="tags clear">
               <el-row>
-                <el-col :xs="0"
-                        :sm="24"
-                        :md="24"
-                        :lg="24"
-                        :xl="24">
+                <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24">
                   <ul>
-                    <li v-for="(item, index) in handleTagsArr(article.tags)"
-                        :key="index"
-                        class="tag-item">
+                    <li
+                      v-for="(item, index) in handleTagsArr(article.tags)"
+                      :key="index"
+                      class="tag-item"
+                    >
                       <el-tag>
                         <span>#</span>
-                        {{item}}
+                        {{ item }}
                       </el-tag>
                     </li>
                   </ul>
@@ -34,51 +34,48 @@
           </div>
         </div>
         <div class="item-slogan">
-          <a :href="`/detail?id=${article.id}`"
-             target="_blank">{{article.slogan}}</a>
+          <a :href="`/detail?id=${article.id}`" target="_blank">{{
+            article.slogan
+          }}</a>
         </div>
         <el-row>
-          <el-col :xs="0"
-                  :sm="24"
-                  :md="24"
-                  :lg="24"
-                  :xl="24">
+          <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24">
             <ul class="item-action clear">
-              <li style="padding-left: 0px;">
+              <li style="padding-left: 0px">
                 <span>
                   <i class="iconfont icon-huo"></i>
-                  {{article.view_count}}
+                  {{ article.view_count }}
                 </span>
                 <em></em>
               </li>
               <li>
                 <span>
                   <i class="iconfont icon-dianzan_active"></i>
-                  {{article.star}}
+                  {{ article.star }}
                 </span>
                 <em></em>
               </li>
               <li>
-                <span>{{article.author}}</span>
+                <span>{{ article.author }}</span>
                 <em></em>
               </li>
               <li>
-                <span>{{moment(article.addTime).format('YYYY-MM-DD')}}</span>
+                <span>{{ moment(article.addTime).format('YYYY-MM-DD') }}</span>
               </li>
             </ul>
           </el-col>
         </el-row>
       </div>
       <div class="article-list-item-meta">
-        <a :href="`/detail?id=${article.id}`"
-           target="_blank"
-           class="item-img">
-          <el-image :src="article.image"
-                    lazy
-                    :alt="article.title">
+        <a :href="`/detail?id=${article.id}`" target="_blank" class="item-img">
+          <el-image
+            :src="article?.file?.file_url || article.image"
+            lazy
+            :alt="article.title"
+          >
             <template #placeholder>
               <div class="el-image-box">
-                <img src="/haomiao-blog.png">
+                <img src="/haomiao-blog.png" />
               </div>
             </template>
             <template #error>

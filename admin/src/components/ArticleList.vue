@@ -1,88 +1,84 @@
 <template>
   <div class="create-article">
-    <el-table :data="articleList"
-              stripe
-              style="width: 100%">
-      <el-table-column prop="type.typeName"
-                       label="类型"
-                       align="center">
+    <el-table :data="articleList" stripe style="width: 100%">
+      <el-table-column prop="type.typeName" label="类型" align="center">
       </el-table-column>
-      <el-table-column prop="title"
-                       label="标题"
-                       align="center">
+      <el-table-column prop="title" label="标题" align="center">
       </el-table-column>
       <el-table-column align="center">
         <template #header>
           <div class="tags">创建时间</div>
         </template>
         <template #default="scope">
-          {{moment(scope.row.addTime).format('YYYY-MM-DD')}}
+          {{ moment(scope.row.addTime).format('YYYY-MM-DD') }}
         </template>
       </el-table-column>
-      <el-table-column prop="view_count"
-                       label="浏览量"
-                       align="center">
+      <el-table-column prop="view_count" label="浏览量" align="center">
       </el-table-column>
-      <el-table-column width="200"
-                       align="center">
+      <el-table-column width="200" align="center">
         <template #header>
           <div class="tags">标签</div>
         </template>
         <template #default="scope">
-          <el-tag :type="item.colorText"
-                  v-for="(item, index) in handleTags(scope.row.tags)"
-                  :key="index">{{item.tagName}}</el-tag>
+          <el-tag
+            :type="item.colorText"
+            v-for="(item, index) in handleTags(scope.row.tags)"
+            :key="index"
+            >{{ item.tagName }}</el-tag
+          >
         </template>
       </el-table-column>
-      <el-table-column prop="slogan"
-                       label="标语"
-                       align="center">
+      <el-table-column prop="slogan" label="标语" align="center">
       </el-table-column>
-      <el-table-column prop="star"
-                       label="点赞量"
-                       align="center">
+      <el-table-column prop="star" label="点赞量" align="center">
       </el-table-column>
-      <el-table-column prop="author"
-                       label="作者"
-                       align="center">
+      <el-table-column prop="author" label="作者" align="center">
       </el-table-column>
       <el-table-column align="center">
         <template #header>
           <div class="operate">操作</div>
         </template>
         <template #default="scope">
-          <el-button type="primary"
-                     icon="el-icon-edit"
-                     circle
-                     @click="handleEdit( scope.row)"></el-button>
-          <el-popconfirm confirmButtonText='确定'
-                         cancelButtonText='取消'
-                         confirmButtonType="danger"
-                         cancelButtonType="primary"
-                         icon="el-icon-info"
-                         iconColor="red"
-                         :title="`确定要删除${scope.row.title}这篇文章吗？`"
-                         @confirm="handleConfirm(scope.row)"
-                         @cancel="handleCancel(scope.row)">
+          <el-button
+            type="primary"
+            icon="el-icon-edit"
+            circle
+            @click="handleEdit(scope.row)"
+          ></el-button>
+          <el-popconfirm
+            confirmButtonText="确定"
+            cancelButtonText="取消"
+            confirmButtonType="danger"
+            cancelButtonType="primary"
+            icon="el-icon-info"
+            iconColor="red"
+            :title="`确定要删除${scope.row.title}这篇文章吗？`"
+            @confirm="handleConfirm(scope.row)"
+            @cancel="handleCancel(scope.row)"
+          >
             <template #reference>
-              <el-button type="danger"
-                         icon="el-icon-delete"
-                         :key="scope.$index"
-                         circle></el-button>
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                :key="scope.$index"
+                circle
+              ></el-button>
             </template>
           </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination">
-      <el-pagination background
-                     layout="prev, pager, next"
-                     @current-change="handleCurrentChange"
-                     @prev-click="handleCurrentChange"
-                     @next-click="handleCurrentChange"
-                     :hide-on-single-page="true"
-                     :currentPage="num"
-                     :total="(parseInt(countAll / size) + 1)*10">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        @current-change="handleCurrentChange"
+        @prev-click="handleCurrentChange"
+        @next-click="handleCurrentChange"
+        :hide-on-single-page="true"
+        :currentPage="num"
+        :total="(parseInt(countAll / size) + 1) * 10"
+      >
       </el-pagination>
     </div>
   </div>
@@ -96,6 +92,7 @@ import moment from 'moment'
 import request from '../http/request'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+import emitter from '../util/mitter.js'
 export default defineComponent({
   name: 'ArticleList',
   setup() {
@@ -126,6 +123,7 @@ export default defineComponent({
       // 将文章保存在本地。
       window.localStorage.setItem('article', JSON.stringify(article))
       router.push('/create')
+      emitter.emit('updateSubmitText', '更新')
     }
     // 删除按钮
     // 真正删除

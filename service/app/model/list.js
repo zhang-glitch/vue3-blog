@@ -14,6 +14,7 @@ module.exports = app => {
     slogan: STRING,
     star: INTEGER,
     image: STRING,
+    article_file_id: INTEGER,
     addTime: {
       type: INTEGER,
     },
@@ -23,6 +24,7 @@ module.exports = app => {
   // 也需要取其他表中的数据。这里的as type表示最后返回的对象名
   List.associate = () => {
     app.model.List.belongsTo(app.model.Type, { foreignKey: 'type_id', as: 'type' });
+    app.model.List.belongsTo(app.model.File, { foreignKey: 'article_file_id', as: 'file' });
   };
 
 

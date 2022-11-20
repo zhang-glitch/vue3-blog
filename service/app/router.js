@@ -42,6 +42,10 @@ module.exports = app => {
   router.get('/getStarCount', controller.list.getStarCount);
   // 获取简历
   router.get('/getResumeData', controller.resume.getResumeData);
+  // 获取搜索关键字列表
+  router.get('/getKeywordStatistics', controller.searchstatistics.getSearchStatistics);
+  // 根据id查找文章
+  router.get('/getArticleById', controller.list.getArticleById);
 
 
   // 后端路由
@@ -63,4 +67,6 @@ module.exports = app => {
   // 获取总体统计数据
   router.get('/admin/totalChartCount', controller.admin.totalChartCount);
   router.get('/admin/getCommentResponseCountByArticleId', controller.admin.getCommentResponseCountByArticleId);
+  // 上传文件
+  router.post('/admin/addFileImg', controller.file.addFileImg)
 };

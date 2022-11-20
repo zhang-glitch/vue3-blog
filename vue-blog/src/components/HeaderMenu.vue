@@ -1,22 +1,25 @@
 <template>
   <div class="header-menu">
-    <el-menu :default-active="activeIndex"
-             :mode="mode"
-             text-color="#686868"
-             active-text-color="#eb5858"
-             menu-trigger="click"
-             @select="onSelect"
-             class="header-menu-wrapper">
-      <el-menu-item v-for="(item) in typeList"
-                    :key="item.id"
-                    :index="item.id+''">
+    <el-menu
+      :default-active="activeIndex"
+      :mode="mode"
+      text-color="#686868"
+      active-text-color="#eb5858"
+      menu-trigger="click"
+      @select="onSelect"
+      class="header-menu-wrapper"
+    >
+      <el-menu-item
+        v-for="item in typeList"
+        :key="item.id"
+        :index="item.id + ''"
+      >
         <i :class="item.vueIcon"></i>
-        <template #title>{{item.typeName}}</template>
+        <template #title>{{ item.typeName }}</template>
       </el-menu-item>
       <!-- 登录按钮 -->
       <el-menu-item class="login">
-        <a href="http://127.0.0.1:8081/login"
-           target="_blank">
+        <a href="http://127.0.0.1:3002/login" target="_blank">
           <i class="el-icon-monitor"></i>
           <!-- <template #title>登录</template> -->
           登录

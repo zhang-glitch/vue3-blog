@@ -8,8 +8,9 @@
              controls>播放</audio> -->
       <!-- 头部背景 -->
       <background-img :imgUrl="'/indexbg.jpg'"></background-img>
+      <keyword-statistics></keyword-statistics>
       <!-- bannner -->
-      <banner-component></banner-component>
+      <!-- <banner-component></banner-component> -->
       <!-- 文章主体 -->
       <article-list :tabsTitle="tabsTitle"></article-list>
     </div>
@@ -20,17 +21,19 @@
 import { defineComponent, reactive } from 'vue'
 // import {useStore} from 'vuex'
 import BackgroundImg from 'components/BackgroundImg.vue'
-import BannerComponent from 'components/BannerComponent.vue'
+// import BannerComponent from 'components/BannerComponent.vue'
 import LayOut from 'components/LayOut.vue'
 import ArticleList from 'components/ArticleList.vue'
+import KeywordStatistics from '../components/KeywordStatistics.vue'
 
 export default defineComponent({
   name: 'index',
   components: {
     LayOut,
     BackgroundImg,
-    BannerComponent,
+    // BannerComponent,
     ArticleList,
+    KeywordStatistics,
   },
   setup() {
     const tabsTitle = reactive([

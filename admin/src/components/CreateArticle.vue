@@ -1,82 +1,90 @@
 <template>
   <div class="create-article">
     <div class="create-wrapper">
-      <el-form ref="form"
-               :model="formVal"
-               :rules="rules">
-        <el-form-item class="title-operate"
-                      prop="title">
-          <el-input class="title"
-                    maxlength="80"
-                    placeholder="请输入文章标题"
-                    v-model="formVal.title"></el-input>
+      <el-form ref="form" :model="formVal" :rules="rules">
+        <el-form-item class="title-operate" prop="title">
+          <el-input
+            class="title"
+            maxlength="80"
+            placeholder="请输入文章标题"
+            v-model="formVal.title"
+          ></el-input>
           <div class="operate">
             <el-button @click="handleSave">草稿箱</el-button>
             <!-- 点击发布后的弹窗 -->
-            <el-popover popper-class="publish-wrapper"
-                        placement="bottom"
-                        trigger="click"
-                        :width="560"
-                        :visible="visible">
-              <el-form ref="formContainer"
-                       :model="formVal"
-                       :rules="rules">
-                <el-form-item label="分类:"
-                              class="type"
-                              prop="type">
+            <el-popover
+              popper-class="publish-wrapper"
+              placement="bottom"
+              trigger="click"
+              :width="560"
+              :visible="visible"
+            >
+              <el-form ref="formContainer" :model="formVal" :rules="rules">
+                <el-form-item label="分类:" class="type" prop="type">
                   <el-radio-group v-model="formVal.type">
                     <el-radio label="技术"></el-radio>
                     <el-radio label="摄影"></el-radio>
                     <el-radio label="生活"></el-radio>
                   </el-radio-group>
                 </el-form-item>
-                <el-form-item label="添加标签:"
-                              class="tags"
-                              prop="tags">
-                  <el-input v-model="formVal.tags"
-                            placeholder="请输入文章标签"></el-input>
+                <el-form-item label="添加标签:" class="tags" prop="tags">
+                  <el-input
+                    v-model="formVal.tags"
+                    placeholder="请输入文章标签"
+                  ></el-input>
                 </el-form-item>
-                <el-form-item label="文章封面:"
-                              class="image"
-                              prop="image">
-                  <el-input v-model="formVal.image"
-                            placeholder="请输入文章封面路径"></el-input>
+                <el-form-item label="文章封面:" class="image" prop="image">
+                  <!-- <el-input
+                    v-model="formVal.image"
+                    placeholder="请输入文章封面路径"
+                  ></el-input> -->
+                  <el-upload
+                    :action="uploadAction"
+                    :headers="uploadHeaders"
+                    :show-file-list="false"
+                    :on-success="handleSuccess"
+                    class="upload-wrapper"
+                  >
+                    <img v-if="imageUrl" :src="imageUrl" class="preview_img" />
+                    <div v-else>
+                      <i class="el-icon-plus avatar-uploader-icon"></i>
+                      <div class="el-upload__text">点击上传封面</div>
+                    </div>
+                  </el-upload>
                 </el-form-item>
-                <el-form-item label="添加简介:"
-                              class="slogan"
-                              prop="slogan">
-                  <el-input type="textarea"
-                            v-model="formVal.slogan"
-                            placeholder="请输入文章封面路径"></el-input>
+                <el-form-item label="添加简介:" class="slogan" prop="slogan">
+                  <el-input
+                    type="textarea"
+                    v-model="formVal.slogan"
+                    placeholder="请输入文章简介"
+                  ></el-input>
                 </el-form-item>
-                <el-form-item label="作者:"
-                              class="author"
-                              prop="author">
-                  <el-input v-model="formVal.author"
-                            placeholder="请输入作者昵称"></el-input>
+                <el-form-item label="作者:" class="author" prop="author">
+                  <el-input
+                    v-model="formVal.author"
+                    placeholder="请输入作者昵称"
+                  ></el-input>
                 </el-form-item>
               </el-form>
               <div style="text-align: right; margin: 0">
-                <el-button size="mini"
-                           @click="visible = false">取消</el-button>
-                <el-button type="primary"
-                           size="mini"
-                           @click="ensurePublish">确定并{{updatePublishText}}</el-button>
+                <el-button size="mini" @click="visible = false">取消</el-button>
+                <el-button type="primary" size="mini" @click="ensurePublish"
+                  >确定并{{ updatePublishText }}</el-button
+                >
               </div>
               <template #reference>
-                <el-button type="primary"
-                           @click="handlePublish">{{updatePublishText}}</el-button>
+                <el-button type="primary" @click="handlePublish">{{
+                  updatePublishText
+                }}</el-button>
               </template>
             </el-popover>
           </div>
         </el-form-item>
         <el-form-item prop="article_content">
-          <div id="vditor"
-               v-text="formVal.article_content"></div>
+          <div id="vditor" v-text="formVal.article_content"></div>
         </el-form-item>
       </el-form>
     </div>
-
   </div>
 </template>
 
@@ -86,7 +94,8 @@ import 'vditor/dist/index.css'
 import Vditor from 'vditor'
 import request from '../http/request'
 import { ElMessage } from 'element-plus'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
+// import emitter from '../util/mitter.js'
 
 export default defineComponent({
   name: 'CreateArticle',
@@ -102,7 +111,12 @@ export default defineComponent({
       tags: '',
       article_content: '',
       image: '',
+      article_file_id: '',
     })
+    const uploadAction = ref('http://127.0.0.1:7001/admin/addFileImg')
+    const imageUrl = ref(
+      JSON.parse(window.localStorage.getItem('article'))?.file?.file_url
+    )
     const type_id = ref(1)
     const formContainer = ref(null)
     // 确定发布文章的字体。更新/发布
@@ -206,7 +220,7 @@ export default defineComponent({
         { required: true, message: '文章简介不能为空', trigger: 'blur' },
       ],
       tags: [{ required: true, message: '文章标签不能为空', trigger: 'blur' }],
-      image: [{ required: true, message: '文章封面不能为空', trigger: 'blur' }],
+      // image: [{ required: true, message: '文章封面不能为空', trigger: 'blur' }],
       article_content: [
         { required: true, message: '文章内容不能为空', trigger: 'blur' },
       ],
@@ -282,18 +296,21 @@ export default defineComponent({
           formVal.value.tags = ''
           formVal.value.image = ''
           formVal.value.article_content = ''
+          formVal.value.article_file_id = ''
+          window.localStorage.setItem('article', '{}')
+          router.push('/list')
         } else {
           return false
         }
       })
-      // // 这里因为创建文章后，不会显示编辑组件了，所以需要再次创建一个编辑器组件。
+      // 这里因为创建文章后，不会显示编辑组件了，所以需要再次创建一个编辑器组件。
       getVditor()
     }
 
     // 草稿箱
     const handleSave = () => {
       // 赋值文章内容。再点击发布按钮的时候，会出现bug。点击后vditor会消失。
-      formVal.value.article_content = contentEditor.value.getValue()
+      // formVal.value.article_content = contentEditor.value.getValue()
       // 点击草稿箱后，先删除缓存的编辑文章
       window.localStorage.removeItem('article')
       // 将草稿保存到本地
@@ -319,41 +336,88 @@ export default defineComponent({
       formVal.value = JSON.parse(articleSave)
     }
 
-    // // 当修改文章时
-    // const router = useRouter()
+    // 当修改文章时
+    const router = useRouter()
     // const instance = getCurrentInstance()
-    // router.beforeEach((to, from, next) => {
-    //   console.log('first===============')
-    //   // 只要是进入这里，给formVal赋值都是无效的。
-    //   if (from.name == 'list' && to.name == 'create') {
-    //     // console.log('=======', from)
-    //     // 改变发布文章的字体
-    //     updatePublishText.value = '更新'
-    //     // console.log('=====updatePublic', updatePublishText)
-    //     // // 先删除保存在草稿箱的记录。
-    //     // window.localStorage.removeItem('articleSave')
+    router.beforeEach((to, from, next) => {
+      // 只要是进入这里，给formVal赋值都是无效的。
+      if (from.name === 'list') {
+        // 改变发布文章的字体
+        updatePublishText.value = '更新'
+        console.log('=====updatePublic', updatePublishText.value)
+        // // 先删除保存在草稿箱的记录。
+        window.localStorage.removeItem('articleSave')
+        const article = window.localStorage.getItem('article')
+        if (article) {
+          formVal.value = JSON.parse(article)
+          console.log('=========firstForm===createArticle', formVal.value)
+          // 赋值图片url
+          imageUrl.value = article?.file?.file_url
+        }
+
+        // instance.ctx.$forceUpdate()
+      } else {
+        // 改变发布文章的字体
+        updatePublishText.value = '发布'
+        console.log('=====updatePublic', updatePublishText.value)
+        // 取出保存的数据
+        const articleSave = window.localStorage.getItem('articleSave')
+        if (articleSave) {
+          formVal.value = JSON.parse(articleSave)
+          console.log('articleSave', formVal.value)
+        }
+
+        // instance.ctx.$forceUpdate()
+      }
+      next()
+    })
+
+    // // 2021-11-30修改
+    // // 修改updatePublishText
+    // emitter.on('updateSubmitText', (text) => {
+    //   updatePublishText.value = text
+    //   console.log('---------', updatePublishText.value)
+    //   if (text === '更新') {
     //     const article = window.localStorage.getItem('article')
     //     if (article) {
     //       formVal.value = JSON.parse(article)
-    //       // console.log(formVal.value)
+    //       console.log('=========firstForm===createArticle', formVal.value)
     //     }
-
-    //     instance.ctx.$forceUpdate()
     //   } else {
-    //     // 改变发布文章的字体
-    //     updatePublishText.value = '发布'
-    //     // console.log('=====updatePublic', updatePublishText)
-    //     // 取出保存的数据
     //     const articleSave = window.localStorage.getItem('articleSave')
     //     if (articleSave) {
     //       formVal.value = JSON.parse(articleSave)
-    //       // console.log('articleSave', formVal.value)
+    //       console.log('articleSave', formVal.value)
     //     }
-
-    //     instance.ctx.$forceUpdate()
     //   }
-    //   next()
     // })
+    // // 监听updatePublishText的变化，然后更新表单数据，回写内容。
+    // watch(updatePublishText, (newText) => {
+    //   console.log('=========', newText)
+    //   // if (newText === '更新') {
+    //   //   const article = window.localStorage.getItem('article')
+    //   //   if (article) {
+    //   //     formVal.value = JSON.parse(article)
+    //   //     console.log('=========firstForm===createArticle', formVal.value)
+    //   //   }
+    //   // } else {
+    //   //   const articleSave = window.localStorage.getItem('articleSave')
+    //   //   if (articleSave) {
+    //   //     formVal.value = JSON.parse(articleSave)
+    //   //     console.log('articleSave', formVal.value)
+    //   //   }
+    //   // }
+    // })
+
+    // 上传文件
+    const handleSuccess = (response, file) => {
+      imageUrl.value = URL.createObjectURL(file.raw)
+      // 处理返回的数据
+      formVal.value.article_file_id = response.data.data.id
+    }
+    const uploadHeaders = ref({
+      token: localStorage.getItem('token'),
+    })
 
     return {
       formVal,
@@ -364,6 +428,10 @@ export default defineComponent({
       formContainer,
       handleSave,
       updatePublishText,
+      uploadAction,
+      imageUrl,
+      handleSuccess,
+      uploadHeaders,
     }
   },
 })
@@ -385,6 +453,25 @@ export default defineComponent({
   .author label {
     color: #1d2129;
     width: 85px !important;
+  }
+
+  .image {
+    .el-form-item__content {
+      flex: none;
+      padding: 0 20px;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 4px;
+      border: 1px solid #dcdfe6;
+    }
+    .upload-wrapper {
+      .el-upload {
+        padding-top: 10px;
+        .preview_img {
+          width: 200px;
+        }
+      }
+    }
   }
 }
 .create-article {

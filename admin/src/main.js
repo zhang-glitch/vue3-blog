@@ -4,14 +4,34 @@ import router from './router'
 import store from './store'
 //引入加载条样式
 import 'nprogress/nprogress.css'
-import 'element-plus/lib/theme-chalk/index.css';
+import 'element-plus/lib/theme-chalk/index.css'
 // 导入图标样式
 import './assets/icon/iconfont.css'
 
 // 使用async
 import 'regenerator-runtime/runtime'
-import { ElButton, ElMenu, ElSubmenu, ElMenuItem, ElTable, ElTableColumn, ElTag, ElPagination, ElPopover, ElPopconfirm, ElForm, ElFormItem, ElInput, ElSelect, ElOption, ElRadioGroup, ElRadio, ElCard } from 'element-plus'
-
+import {
+  ElButton,
+  ElMenu,
+  ElSubmenu,
+  ElMenuItem,
+  ElTable,
+  ElTableColumn,
+  ElTag,
+  ElPagination,
+  ElPopover,
+  ElPopconfirm,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElSelect,
+  ElOption,
+  ElRadioGroup,
+  ElRadio,
+  ElCard,
+  ElIcon,
+  ElUpload
+} from 'element-plus'
 
 import VueEcharts from 'vue-echarts'
 import * as echarts from 'echarts'
@@ -35,5 +55,11 @@ app.use(ElOption)
 app.use(ElRadioGroup)
 app.use(ElRadio)
 app.use(ElCard)
-app.use(store).use(router).component('vue-echarts', VueEcharts).mount('#app')
+app.use(ElIcon)
+app.use(ElUpload)
+app
+  .use(store)
+  .use(router)
+  .component('vue-echarts', VueEcharts)
+  .mount('#app')
 app.echarts = echarts

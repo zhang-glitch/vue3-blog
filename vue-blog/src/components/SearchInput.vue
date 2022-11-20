@@ -1,10 +1,8 @@
 <template>
   <div class="search-input">
-    <el-input placeholder="请输入内容"
-              v-model="searchValue">
+    <el-input placeholder="请输入内容" v-model="searchValue">
       <template #suffix>
-        <i class="el-input__icon el-icon-search"
-           @click="skipSearchPage"></i>
+        <i class="el-input__icon el-icon-search" @click="skipSearchPage"></i>
       </template>
     </el-input>
   </div>
@@ -14,12 +12,14 @@
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import emitter from 'util/emitter.js'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'SearchInput',
   setup() {
-    let searchValue = ref('')
+    const store = useStore()
     const router = useRouter()
+    let searchValue = ref(store.state.searchValue)
 
     const skipSearchPage = () => {
       // 跳转页面

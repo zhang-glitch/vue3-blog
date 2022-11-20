@@ -1,19 +1,22 @@
 <template>
-  <div v-loading="isLoading"
-       :element-loading-spinner="'el-icon-loading'">
+  <div v-loading="isLoading" :element-loading-spinner="'el-icon-loading'">
     <lay-out>
       <div class="wrap clear">
         <!-- 头部背景 -->
         <div class="detail-img">
           <div class="cover-box">
             <div class="b-cover">
-              <lazy-img :imgUrl="article.image"></lazy-img>
+              <lazy-img
+                :imgUrl="article?.file?.file_url || article.image"
+              ></lazy-img>
             </div>
             <div class="s-cover">
               <!-- <div class="item-background"
                    v-if="article.image"
                    :style="{backgroundImage: `url(${article.image})`}"></div> -->
-              <lazy-img :imgUrl="article.image"></lazy-img>
+              <lazy-img
+                :imgUrl="article?.file?.file_url || article.image"
+              ></lazy-img>
             </div>
           </div>
         </div>
@@ -21,27 +24,29 @@
         <div class="detail">
           <div class="detail-wrapper">
             <div class="info container">
-              <h1 class="article-title">{{article ? article.title : ''}}</h1>
-              <div class="user-nav"
-                   style="margin-left: 3px;">
+              <h1 class="article-title">{{ article ? article.title : '' }}</h1>
+              <div class="user-nav" style="margin-left: 3px">
                 <ul>
-                  <li style="padding-left: 0;">
-                    {{article ? article.author : 'js臻'}}
+                  <li style="padding-left: 0">
+                    {{ article ? article.author : 'js臻' }}
                     <em></em>
                   </li>
                   <li>
-
-                    {{article ? moment(article.addTime).startOf('hour').fromNow() : ''}}
+                    {{
+                      article
+                        ? moment(article.addTime).startOf('hour').fromNow()
+                        : ''
+                    }}
                     <em></em>
                   </li>
                   <li>
                     <i class="iconfont icon-huo"></i>
-                    {{article ? article.view_count : ''}}
+                    {{ article ? article.view_count : '' }}
                     <em></em>
                   </li>
                   <li>
                     <i class="iconfont icon-dianzan_active"></i>
-                    {{article ? article.star : ''}}
+                    {{ article ? article.star : '' }}
                   </li>
                 </ul>
               </div>
@@ -50,8 +55,15 @@
             <div class="show-article-main">
               <div class="show-article-main-wrapper container">
                 <div class="row">
-                  <div class=" share-star-wrapper">
-                    <el-card style="position: fixed; z-index: 99 !important; left: 5px !important;">
+                  <!-- 分享和点赞 -->
+                  <div class="share-star-wrapper">
+                    <el-card
+                      style="
+                        position: fixed;
+                        z-index: 99 !important;
+                        left: 5px !important;
+                      "
+                    >
                       <div class="share-star">
                         <span class="star">
                           <i class="iconfont icon-dianzan_active"></i>
@@ -62,44 +74,56 @@
                       </div>
                     </el-card>
                   </div>
-                  <div class="col-12 col-sm-12 col-md-11 col-lg-8 col-xl-9 detailed-content">
+                  <!-- 文章内容区 -->
+                  <div
+                    class="
+                      col-12 col-sm-12 col-md-11 col-lg-8 col-xl-9
+                      detailed-content
+                    "
+                  >
                     <el-card>
                       <!-- 内容区域 -->
                       <div id="preview"></div>
-                      <el-divider style="margin-top: 50px;"></el-divider>
+                      <el-divider style="margin-top: 50px"></el-divider>
                       <div class="reward">
                         <p>"你的赞赏，是对我最大的支持哦 !"</p>
                         <div class="reward-btn">
-                          <el-button type="primary"
-                                     round
-                                     @click="isReward=true">
+                          <el-button
+                            type="primary"
+                            round
+                            @click="isReward = true"
+                          >
                             <span class="iconfont icon-zanshang"></span>
                             赞赏支持
                           </el-button>
                         </div>
                         <div class="reward-background">
-                          <img src="/reward.png"
-                               alt="">
+                          <img src="/reward.png" alt="" />
                         </div>
                       </div>
                       <!-- 展示评论 -->
                       <show-comment></show-comment>
                     </el-card>
                     <!-- 评论 -->
-                    <el-card style="margin-top: 30px;">
+                    <el-card style="margin-top: 30px">
                       <comment-input></comment-input>
                     </el-card>
                   </div>
-                  <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3 catelog">
+                  <!-- 目录 -->
+                  <div
+                    class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3 catelog"
+                  >
                     <el-affix :offset="100">
                       <el-card class="nav-wrapper">
                         <template #header>
                           <i class="iconfont icon-shu"></i>
                           <span>目录</span>
                         </template>
-                        <div className="toc-list"
-                             :style="{ maxHeight: 500, overflowY: 'auto' }"
-                             id="outline"></div>
+                        <div
+                          className="toc-list"
+                          :style="{ maxHeight: 500, overflowY: 'auto' }"
+                          id="outline"
+                        ></div>
                       </el-card>
                     </el-affix>
                   </div>
@@ -110,24 +134,21 @@
         </div>
         <!-- 赞赏的弹窗 -->
         <div class="reward-dialog">
-          <el-dialog v-model="isReward"
-                     width="300px"
-                     :show-close="false"
-                     :lock-scroll="false">
+          <el-dialog
+            v-model="isReward"
+            width="300px"
+            :show-close="false"
+            :lock-scroll="false"
+          >
             <div class="reward-box">
-              <img :src="wechatAliPayImg"
-                   alt="">
+              <img :src="wechatAliPayImg" alt="" />
               <div class="reward-footer">
-                <div class="we-chat"
-                     @click="handleWeCaht">
-                  <i class="iconfont"
-                     :class="weChatClass"></i>
+                <div class="we-chat" @click="handleWeCaht">
+                  <i class="iconfont" :class="weChatClass"></i>
                   <span>微信</span>
                 </div>
-                <div class="ali-pay"
-                     @click="handleAliPay">
-                  <i class="iconfont"
-                     :class="aliPayClass"></i>
+                <div class="ali-pay" @click="handleAliPay">
+                  <i class="iconfont" :class="aliPayClass"></i>
                   <span>支付宝</span>
                 </div>
               </div>
@@ -137,8 +158,7 @@
       </div>
     </lay-out>
     <!-- 预览图片 -->
-    <preview-photo :imagesArr="imagesArr"
-                   :imgIndex="imgIndex"></preview-photo>
+    <preview-photo :imagesArr="imagesArr" :imgIndex="imgIndex"></preview-photo>
   </div>
 </template>
 
@@ -189,12 +209,15 @@ export default defineComponent({
     }
 
     const getHTMLContent = function (markdown = '暂无数据') {
+      // 获取存放md文章的容器
       const previewElement = document.getElementById('preview')
+      // 获取存放目录的容器
       const outlineElement = document.getElementById('outline')
-
-      // 大纲
+      // 大纲，就是每个目录前面的小标识。
       const initOutline = () => {
+        // 保存h2标题
         const headingElements = []
+        // 遍历md的直接子孩子节点。看其标题是否是h2
         Array.from(previewElement.children).forEach((item) => {
           if (
             item.tagName.length === 2 &&
@@ -205,24 +228,28 @@ export default defineComponent({
           }
         })
 
-        // 给目录初始化样式并添加title
+        // 给目录初始化样式
         document
           .querySelector('#outline ul li > span')
           .classList.add('vditor-outline__item--current')
 
+        // 获取目录标签
         const arrayList = Array.from(
           document.querySelectorAll('#outline ul li > span')
         )
-        // 设置title
+        // 给span设置title属性，并将其值设置为文本
         for (let i = 0; i < arrayList.length; i++) {
           arrayList[i].setAttribute('title', arrayList[i].innerText)
         }
 
+        // 盛放目录标题
         let toc = []
         window.addEventListener('scroll', () => {
           const scrollTop = window.scrollY
           toc = []
+          // 拿到每个标题，并设置其偏移量
           headingElements.forEach((item) => {
+            // 这里的id就是h1-h6标题文本， offsetTop是markdown中h2标题距离顶部的距离。
             toc.push({
               id: item.id,
               offsetTop: item.offsetTop,
@@ -241,10 +268,12 @@ export default defineComponent({
             '.vditor-outline__item--current'
           )
           for (let i = 0, iMax = toc.length; i < iMax; i++) {
+            // 如果偏离了改元素的高度，那么将下一个元素设置选中状态，将当前元素不设置选中状态。
             if (scrollTop < toc[i].offsetTop - 30) {
               if (currentElement) {
                 currentElement.classList.remove('vditor-outline__item--current')
               }
+              // 选中的状态是当前选中的元素的下一元素。 0, 1下标都是选中第一个元素。因为toc.length的长度多一个。需要给尾部添加30px像素的额外空间。
               let index = i > 0 ? i - 1 : 0
               document.querySelector(
                 'span[data-target-id="' + toc[index].id + '"]'
@@ -269,11 +298,15 @@ export default defineComponent({
         },
         anchor: 2, // 为标题添加锚点 0：不渲染；1：渲染于标题前；2：渲染于标题后，默认 0
         lazyLoadImage: '/lazyImage.jpg', // 懒加载
+        // 处理md转html后的事情。
         after: async () => {
-          // 大纲，目录
+          // 大纲，目录，将目录标题标签提取到outlineElement
           Vditor.outlineRender(previewElement, outlineElement)
+          // 调用上面的方法后，outlineElement这里就可以拿到转化后的值了。然后再initOutline中就可以对其就行分析了。
+          // <li><span data-target-id="ajax及查询字符串的封装" class="vditor-outline__item--current" title="ajax及查询字符串的封装"><svg></svg><span>ajax及查询字符串的封装</span></span></li>
           if (outlineElement.innerText.trim() !== '') {
             outlineElement.style.display = 'block'
+            // 设置目录标题前面的样式
             initOutline()
           }
           // 图片预览
@@ -294,7 +327,7 @@ export default defineComponent({
 
           imagesArr.value = _imagesArr // 加载完成设置预览数组
 
-          Vditor.codeRender(previewElement) // 为代码块添加赋值按钮
+          Vditor.codeRender(previewElement) // 为代码块添加复制按钮
         },
       })
     }
@@ -508,6 +541,7 @@ export default defineComponent({
         // }
         .toc-list {
           font-size: 14px;
+          // 这些标签是在js中创建的，设置目录标签样式
           & > ul {
             position: relative;
             list-style: none;
@@ -570,6 +604,7 @@ export default defineComponent({
           margin-right: 0;
         }
 
+        // 添加选中的目录标题样式
         .vditor-outline__item--current {
           background-color: #e6f7ff;
           color: #1890ff;
