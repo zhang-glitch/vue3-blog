@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@huoyu/vue-digitroll": "^1.0.4",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "bootstrap": "^5.0.0-beta1",
     "element-plus": "^1.0.2-beta.30",
     "highlight.js": "^10.5.0",
