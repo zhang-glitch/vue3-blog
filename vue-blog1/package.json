@@ -24,14 +24,14 @@
     "sass": "^1.52.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.8",
+    "@vue/cli-service": "~5.0.8",
+    "@vue/compiler-sfc": "^3.2.45",
     "babel-plugin-component": "^1.1.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
     "dart-sass": "^1.25.0",
-    "sass-loader": "^7.3.1"
+    "sass-loader": "^13.2.0"
   },
   "eslintConfig": {
     "root": true,
