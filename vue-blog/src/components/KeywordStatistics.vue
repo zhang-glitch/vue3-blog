@@ -187,7 +187,7 @@ export default defineComponent({
           expandAndCollapse: true,
           label: {
             position: 'top',
-            rotate: -90,
+            rotate: 0,
             verticalAlign: 'middle',
             align: 'right',
             fontSize: 9,

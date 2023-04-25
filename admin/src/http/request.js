@@ -35,7 +35,7 @@ function request(config) {
       NProgress.done() // 设置加载进度条(结束..)
       if (res.data.status === 200) {
         // 设置token
-        if (res.data.data.token) {
+        if (res?.data?.data?.token) {
           window.localStorage.setItem('token', res.data.data.token)
         }
         return res.data.data

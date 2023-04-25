@@ -1,0 +1,24 @@
+{
+  "name": "vue-blog-wrapper",
+  "version": "1.0.0",
+  "description": "通过vue3重构个人博客",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhang-glitch/vue3-blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhang-glitch/vue3-blog/issues"
+  },
+  "homepage": "https://github.com/zhang-glitch/vue3-blog#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.18.2"
+  }
+}

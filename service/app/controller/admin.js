@@ -31,7 +31,8 @@ class Admin extends BaseController {
       const token = await this.useJwt(res.userName)
       this.success({
         token,
-        isSuccess: true
+        isSuccess: true,
+        username: ctx.request.body.username
       })
     } else {
       this.success({

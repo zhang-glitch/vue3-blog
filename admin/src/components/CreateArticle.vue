@@ -162,7 +162,47 @@ export default defineComponent({
         },
         mode: 'sv',
         toolbar: [
-          'emoji',
+          // 'emoji',
+          // 'headings',
+          // 'bold',
+          // 'italic',
+          // 'strike',
+          // 'link',
+          // '|',
+          // 'list',
+          // 'ordered-list',
+          // 'check',
+          // 'outdent',
+          // 'indent',
+          // '|',
+          // 'quote',
+          // 'line',
+          // 'code',
+          // 'inline-code',
+          // 'insert-before',
+          // 'insert-after',
+          // '|',
+          // // 'record',
+          // 'table',
+          // '|',
+          // 'undo',
+          // 'redo',
+          // '|',
+          // 'edit-mode',
+          // // 'content-theme',
+          // 'code-theme',
+          // 'export',
+          // {
+          //   name: 'more',
+          //   toolbar: [
+          //     'fullscreen',
+          //     'outline',
+          //     'both',
+          //     'preview',
+          //     'info',
+          //     'help',
+          //   ],
+          // },
           'headings',
           'bold',
           'italic',
@@ -184,26 +224,51 @@ export default defineComponent({
           '|',
           // 'record',
           'table',
+          'upload',
           '|',
           'undo',
           'redo',
           '|',
           'edit-mode',
-          // 'content-theme',
-          'code-theme',
           'export',
-          {
-            name: 'more',
-            toolbar: [
-              'fullscreen',
-              'outline',
-              'both',
-              'preview',
-              'info',
-              'help',
-            ],
-          },
+          'outline',
+          'fullscreen',
+          '|',
+          'content-theme',
+          'code-theme',
+          'both',
+          'preview',
         ],
+        // 图片上传
+        upload: {
+          accept: 'image/*',
+          token: localStorage.getItem('token'),
+          withCredentials: true,
+          url: uploadAction.value,
+          // linkToImgUrl: '/api/upload/fetch',
+          success: (editor, msg) => {
+            // msg后端返回的内容 string
+            // console.log("editor", editor)
+            const result = JSON.parse(msg)
+            contentEditor.value.insertValue(`![result.data.data.file_url](${result.data.data.file_url})`)
+          },
+          error(msg) {
+            // console.log("上传失败0")
+            this.$message.error(msg)
+          },
+          filename(name) {
+            return name
+            .replace(/[^(a-zA-Z0-9\u4e00-\u9fa5\.)]/g, '')
+            .replace(/[\?\\/:|<>\*\[\]\(\)\$%\{\}@~]/g, '')
+            .replace('/\\s/g', '')
+          },
+          fieldName: 'file', // 上传的字段名称
+          setHeaders() {
+            return {
+              token: localStorage.getItem('token'),
+            }
+          },
+        },
       })
     }
 

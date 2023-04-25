@@ -30,8 +30,13 @@ import {
   ElRadio,
   ElCard,
   ElIcon,
-  ElUpload
+  ElUpload,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu
 } from 'element-plus'
+
+import { UserFilled, ArrowDown, Notebook } from '@element-plus/icons-vue'
 
 import VueEcharts from 'vue-echarts'
 import * as echarts from 'echarts'
@@ -57,6 +62,12 @@ app.use(ElRadio)
 app.use(ElCard)
 app.use(ElIcon)
 app.use(ElUpload)
+app.use(ElDropdown)
+app.use(ElDropdownItem)
+app.use(ElDropdownMenu)
+app.component('UserFilled', UserFilled)
+app.component('ArrowDown', ArrowDown)
+app.component('Notebook', Notebook)
 app
   .use(store)
   .use(router)

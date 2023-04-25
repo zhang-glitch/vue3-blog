@@ -78,7 +78,6 @@ module.exports = appInfo => {
         'http://127.0.0.1:8080'
       ]
       if (whiteList.includes(origin)) {
-        console.log('正确')
         return origin
       }
     },

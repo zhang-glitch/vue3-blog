@@ -2,51 +2,69 @@
   <div class="home-wrapper">
     <Header />
     <div class="home">
-      <el-menu class="menu"
-               @select="handleSelect"
-               :collapse="isCollapse">
-        <div class="btn-collapse"
-             @click="handleCollapse">
+      <el-menu class="menu" @select="handleSelect" :collapse="isCollapse">
+        <div class="btn-collapse" @click="handleCollapse">
           <i :class="collapseIcon"></i>
         </div>
         <el-submenu index="1">
           <template #title>
-            <i class="el-icon-location"></i>
+            <i class="el-icon-s-management"></i>
             <span>文章</span>
           </template>
-          <el-menu-item index="create">写文章</el-menu-item>
-          <el-menu-item index="list">文章列表</el-menu-item>
+          <el-menu-item index="create">
+            <i class="el-icon-edit"></i>
+            <span>写文章</span>
+          </el-menu-item>
+          <el-menu-item index="list">
+            <i class="el-icon-tickets"></i>
+            <span>文章列表</span>
+          </el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template #title>
-            <i class="el-icon-location"></i>
+            <i class="el-icon-chat-round"></i>
             <span>留言</span>
           </template>
-          <el-menu-item index="message">评论</el-menu-item>
+          <el-menu-item index="message">
+            <i class="el-icon-chat-line-round"></i>
+            <span>评论</span>
+          </el-menu-item>
         </el-submenu>
         <el-submenu index="3">
           <template #title>
-            <i class="el-icon-location"></i>
+            <i class="el-icon-data-analysis"></i>
             <span>网站统计</span>
           </template>
           <el-menu-item index="totalchart">
             <!-- <i class="el-icon-setting"></i> -->
-            <template #title>总体统计</template>
+            <template #title>
+              <i class="el-icon-pie-chart"></i>
+              <span>总体统计</span>
+            </template>
           </el-menu-item>
           <el-menu-item index="articlechart">
             <!-- <i class="el-icon-setting"></i> -->
-            <template #title>文章统计</template>
+            <template #title>
+              <i class="el-icon-data-board"></i>
+              <span>文章统计</span>
+            </template>
           </el-menu-item>
-          <el-menu-item index="commentchart">
-            <!-- <i class="el-icon-setting"></i> -->
-            <template #title>评论统计</template>
+          <el-menu-item index="keywordstatistics">
+            <template #title>
+              <i class="el-icon-attract"></i>
+              <span>搜索关键词统计</span></template
+            >
           </el-menu-item>
-          <el-menu-item index="responsechart">
-            <!-- <i class="el-icon-setting"></i> -->
+          <!-- <el-menu-item index="responsechart">
             <template #title>回复统计</template>
-          </el-menu-item>
+          </el-menu-item> -->
+          <!-- <el-menu-item index="commentchart">
+            <template #title>
+              <i class="el-icon-attract"></i>
+              <span>评论统计</span></template
+            >
+          </el-menu-item> -->
         </el-submenu>
-
       </el-menu>
       <!-- 内容区域 -->
       <div class="content">
@@ -85,6 +103,8 @@ export default defineComponent({
         router.push('/commentchart')
       } else if (key === 'responsechart') {
         router.push('/responsechart')
+      } else if (key === 'keywordstatistics') {
+        router.push('/keywordstatistics')
       }
     }
     const handleCollapse = () => {
@@ -116,9 +136,9 @@ export default defineComponent({
   display: flex;
   height: 100%;
   width: 100%;
+  box-sizing: border-box;
 
   .menu {
-    box-sizing: border-box;
     height: 100%;
     // 折叠按钮
     .btn-collapse {

@@ -7,12 +7,29 @@ class Admin extends Service {
   // 登录
   async login(params) {
     const { ctx } = this
+    // 如果有则登录成功，没有将直接添加然后登录
     const res = await ctx.model.Login.findOne({
       where: {
         userName: params.username,
         password: params.password
       }
     })
+    if (!res) {
+      // 查找用户名
+      const res1 = await ctx.model.Login.findOne({
+        where: {
+          userName: params.username
+        }
+      })
+      if (!res1) {
+        // 用户名没有查到才会去创建
+        return await ctx.model.Login.create({
+          userName: params.username,
+          password: params.password,
+          createTime: new Date().getTime()
+        })
+      }
+    }
     return res
   }
 

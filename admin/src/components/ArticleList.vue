@@ -1,6 +1,6 @@
 <template>
   <div class="create-article">
-    <el-table :data="articleList" stripe style="width: 100%">
+    <el-table :data="articleList" stripe max-height="600">
       <el-table-column prop="type.typeName" label="类型" align="center">
       </el-table-column>
       <el-table-column prop="title" label="标题" align="center">
@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column prop="view_count" label="浏览量" align="center">
       </el-table-column>
-      <el-table-column width="200" align="center">
+      <el-table-column align="center">
         <template #header>
           <div class="tags">标签</div>
         </template>
@@ -181,6 +181,9 @@ export default defineComponent({
   height: 100%;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  /* 这里通过绝对定位去解决横向滚动条问题 */
+  position: relative;
 
   .el-table_1_column_6 {
     width: 200px;
@@ -200,13 +203,29 @@ export default defineComponent({
 
   .el-table {
     flex: 1;
+    position: absolute;
+    right: 0;
+
+    .el-table__body-wrapper {
+      width: 100%;
+
+      .el-table__body {
+        width: 100% !important;
+        overflow-x: scroll;
+      }
+    }
   }
 
   .pagination {
     height: 55px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* display: flex;
+    justify-content: flex-end;
+    align-items: center; */
+    .el-pagination {
+      position: absolute;
+      bottom: 50px;
+      right: 20px;
+    }
   }
 }
 </style>

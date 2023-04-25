@@ -1,16 +1,18 @@
 <template>
   <div class="comment-response">
-    <el-table :data="messageList"
-              style="width: 100%;margin-bottom: 20px;"
-              row-key="id"
-              stripe
-              :tree-props="{children: 'responseList'}">
+    <el-table
+      :data="messageList"
+      style="width: 100%; margin-bottom: 20px"
+      row-key="id"
+      stripe
+      :tree-props="{ children: 'responseList' }"
+    >
       <el-table-column>
         <template #header>
           <div class="time">留言名称</div>
         </template>
         <template #default="scope">
-          {{scope.row.commentName || scope.row.responseName}}
+          {{ scope.row.commentName || scope.row.responseName }}
         </template>
       </el-table-column>
       <el-table-column align="center">
@@ -18,7 +20,7 @@
           <div class="time">留言内容</div>
         </template>
         <template #default="scope">
-          {{scope.row.commentText || scope.row.responseText}}
+          {{ scope.row.commentText || scope.row.responseText }}
         </template>
       </el-table-column>
       <el-table-column align="center">
@@ -26,7 +28,11 @@
           <div class="time">留言时间</div>
         </template>
         <template #default="scope">
-          {{moment(+scope.row.commentTime || +scope.row.responseTime).format('YYYY-MM-DD')}}
+          {{
+            moment(+scope.row.commentTime || +scope.row.responseTime).format(
+              'YYYY-MM-DD'
+            )
+          }}
         </template>
       </el-table-column>
       <el-table-column align="center">
@@ -34,34 +40,42 @@
           <div class="operate">操作</div>
         </template>
         <template #default="scope">
-          <el-popconfirm confirmButtonText='确定'
-                         cancelButtonText='取消'
-                         confirmButtonType="danger"
-                         cancelButtonType="primary"
-                         icon="el-icon-info"
-                         iconColor="red"
-                         :title="`确定要删除${scope.row.commentName || scope.row.responseName}的留言及评论吗？`"
-                         @confirm="handleConfirm(scope.row)"
-                         @cancel="handleCancel(scope.row)">
+          <el-popconfirm
+            confirmButtonText="确定"
+            cancelButtonText="取消"
+            confirmButtonType="danger"
+            cancelButtonType="primary"
+            icon="el-icon-info"
+            iconColor="red"
+            :title="`确定要删除${
+              scope.row.commentName || scope.row.responseName
+            }的留言及评论吗？`"
+            @confirm="handleConfirm(scope.row)"
+            @cancel="handleCancel(scope.row)"
+          >
             <template #reference>
-              <el-button type="danger"
-                         icon="el-icon-delete"
-                         :key="scope.$index"
-                         circle></el-button>
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                :key="scope.$index"
+                circle
+              ></el-button>
             </template>
           </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination">
-      <el-pagination background
-                     layout="prev, pager, next"
-                     @current-change="handleCurrentChange"
-                     @prev-click="handleCurrentChange"
-                     @next-click="handleCurrentChange"
-                     :hide-on-single-page="true"
-                     :currentPage="num"
-                     :total="(parseInt(countAll / size) + 1)*10">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        @current-change="handleCurrentChange"
+        @prev-click="handleCurrentChange"
+        @next-click="handleCurrentChange"
+        :hide-on-single-page="true"
+        :currentPage="num"
+        :total="(parseInt(countAll / size) + 1) * 10"
+      >
       </el-pagination>
     </div>
   </div>
@@ -155,9 +169,14 @@ export default defineComponent({
 
   .pagination {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
+    justify-content: flex-end;
+    height: 55px;
+    margin-top: 30px;
+    /* .el-pagination {
+      position: absolute;
+      bottom: 0;
+      right: 20px;
+    } */
   }
 }
 </style>

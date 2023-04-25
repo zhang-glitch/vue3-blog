@@ -13,7 +13,21 @@
       <router-link to="/login" v-if="!isLogin" class="login-btn">
         <el-button type="primary">登录</el-button>
       </router-link>
-      <el-button type="info" @click="logout">退出登录</el-button>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          <span class="down-icon"><UserFilled /></span>
+          <span class="username">{{ username }}</span>
+          <!-- <el-icon class="el-icon--right">
+            <arrow-down />
+          </el-icon> -->
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item disabled>修改密码</el-dropdown-item>
+            <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -30,6 +44,7 @@ export default defineComponent({
     // const store = useStore()
     // const isLogin = computed(() => store.state.isLogin)
     const isLogin = !!window.localStorage.getItem('token')
+    const username = localStorage.getItem('username')
     const logout = async () => {
       const data = await request({
         url: '/admin/logout',
@@ -39,6 +54,7 @@ export default defineComponent({
         ElMessage.success('退出成功，即将跳转到登录页面')
         window.location.href = '/login'
         window.localStorage.removeItem('token')
+        window.localStorage.removeItem('username')
       } else {
         ElMessage.error('退出失败')
       }
@@ -46,6 +62,7 @@ export default defineComponent({
     return {
       logout,
       isLogin,
+      username,
     }
   },
 })
@@ -54,13 +71,14 @@ export default defineComponent({
 <style lang="scss">
 .header {
   box-sizing: border-box;
-  background: #000;
+  background: #fff;
   height: 50px;
   padding-left: 30px;
   padding-right: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #eee;
   .logo {
     a {
       display: block;
@@ -250,7 +268,7 @@ export default defineComponent({
 
       .header-txt {
         font-size: 0.6rem;
-        color: #fff;
+        color: #000;
         display: inline-block;
         padding-left: 1rem;
         font-weight: bold;
@@ -259,6 +277,20 @@ export default defineComponent({
   }
 
   .log-in-out {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    .down-icon {
+      height: 20px;
+      width: 20px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .username {
+      margin-left: 5px;
+      vertical-align: middle;
+    }
     .login-btn {
       margin-right: 10px;
     }

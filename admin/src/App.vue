@@ -10,6 +10,7 @@ export default {
 
 <style lang="scss">
 @import './assets/reset.scss';
+@import './assets/base.scss';
 body,
 html {
   height: 100%;
