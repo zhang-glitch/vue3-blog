@@ -162,47 +162,6 @@ export default defineComponent({
         },
         mode: 'sv',
         toolbar: [
-          // 'emoji',
-          // 'headings',
-          // 'bold',
-          // 'italic',
-          // 'strike',
-          // 'link',
-          // '|',
-          // 'list',
-          // 'ordered-list',
-          // 'check',
-          // 'outdent',
-          // 'indent',
-          // '|',
-          // 'quote',
-          // 'line',
-          // 'code',
-          // 'inline-code',
-          // 'insert-before',
-          // 'insert-after',
-          // '|',
-          // // 'record',
-          // 'table',
-          // '|',
-          // 'undo',
-          // 'redo',
-          // '|',
-          // 'edit-mode',
-          // // 'content-theme',
-          // 'code-theme',
-          // 'export',
-          // {
-          //   name: 'more',
-          //   toolbar: [
-          //     'fullscreen',
-          //     'outline',
-          //     'both',
-          //     'preview',
-          //     'info',
-          //     'help',
-          //   ],
-          // },
           'headings',
           'bold',
           'italic',
@@ -248,12 +207,10 @@ export default defineComponent({
           // linkToImgUrl: '/api/upload/fetch',
           success: (editor, msg) => {
             // msg后端返回的内容 string
-            // console.log("editor", editor)
             const result = JSON.parse(msg)
             contentEditor.value.insertValue(`![result.data.data.file_url](${result.data.data.file_url})`)
           },
           error(msg) {
-            // console.log("上传失败0")
             this.$message.error(msg)
           },
           filename(name) {
@@ -331,18 +288,22 @@ export default defineComponent({
       // 验证表单
       formContainer.value?.validate(async (valid) => {
         if (valid) {
-          if (updatePublishText.value === '更新') {
-            // 更新文章的请求
-            await http('/admin/updateArticle', formVal.value)
-          } else {
-            // 发布文章
-            if (formVal.value.type === '技术') {
+          if (formVal.value.type === '技术') {
               type_id.value = '1'
             } else if (formVal.value.type === '摄影') {
               type_id.value = '2'
             } else {
               type_id.value = '3'
             }
+          if (updatePublishText.value === '更新') {
+             // 发送请求
+             const editData = {
+              ...formVal.value,
+              type_id: type_id.value,
+            }
+            // 更新文章的请求
+            await http('/admin/updateArticle', editData)
+          } else {
             // 发送请求
             const createData = {
               ...formVal.value,
@@ -351,6 +312,7 @@ export default defineComponent({
               view_count: 0,
               star: 0,
             }
+            // 发布文章
             await http('/admin/createArticle', createData)
           }
           // 清空表单
@@ -409,13 +371,11 @@ export default defineComponent({
       if (from.name === 'list') {
         // 改变发布文章的字体
         updatePublishText.value = '更新'
-        console.log('=====updatePublic', updatePublishText.value)
         // // 先删除保存在草稿箱的记录。
         window.localStorage.removeItem('articleSave')
         const article = window.localStorage.getItem('article')
         if (article) {
           formVal.value = JSON.parse(article)
-          console.log('=========firstForm===createArticle', formVal.value)
           // 赋值图片url
           imageUrl.value = article?.file?.file_url
         }
@@ -424,12 +384,10 @@ export default defineComponent({
       } else {
         // 改变发布文章的字体
         updatePublishText.value = '发布'
-        console.log('=====updatePublic', updatePublishText.value)
         // 取出保存的数据
         const articleSave = window.localStorage.getItem('articleSave')
         if (articleSave) {
           formVal.value = JSON.parse(articleSave)
-          console.log('articleSave', formVal.value)
         }
 
         // instance.ctx.$forceUpdate()

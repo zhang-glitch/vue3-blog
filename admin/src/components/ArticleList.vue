@@ -4,6 +4,9 @@
       <el-table-column prop="type.typeName" label="类型" align="center">
       </el-table-column>
       <el-table-column prop="title" label="标题" align="center">
+        <template #default="scope">
+          <p class="text-esp">{{scope.row.title}}</p>
+        </template>
       </el-table-column>
       <el-table-column align="center">
         <template #header>
@@ -29,6 +32,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="slogan" label="标语" align="center">
+        <template #default="scope">
+          <p class="text-esp">{{scope.row.slogan}}</p>
+        </template>
       </el-table-column>
       <el-table-column prop="star" label="点赞量" align="center">
       </el-table-column>

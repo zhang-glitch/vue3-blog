@@ -161,3 +161,10 @@ a {
 ::-webkit-scrollbar-track-piece {
   background-color: #f9f9f9;
 }
+
+// 省略号
+.text-esp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}

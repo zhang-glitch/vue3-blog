@@ -20,7 +20,7 @@
           <div class="time">留言内容</div>
         </template>
         <template #default="scope">
-          {{ scope.row.commentText || scope.row.responseText }}
+          <p class="text-esp">{{ scope.row.commentText || scope.row.responseText }}</p>
         </template>
       </el-table-column>
       <el-table-column align="center">
