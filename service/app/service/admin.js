@@ -42,7 +42,7 @@ class Admin extends Service {
 
   // 编辑文章
   async updateArticle(params) {
-    console.log('编辑文章', params)
+    // console.log('编辑文章', params)
     const { ctx } = this
     const res = await ctx.model.List.update(params, {
       where: {
@@ -96,7 +96,7 @@ class Admin extends Service {
     const res = await ctx.model.Comment.findAll({
       limit: +params.pageSize, // 5
       offset: (+params.pageNum - 1) * params.pageSize,
-      order: [['commentTime', 'DESC']]
+      order: [[ 'commentTime', 'DESC' ]]
     })
     return res
   }
@@ -148,7 +148,7 @@ class Admin extends Service {
   async getCommentCountByTypeId() {
     const { ctx } = this
     const idArr = await ctx.model.Comment.findAll({
-      attributes: ['type_id', [fn('count', col('type_id')), 'commentCount']],
+      attributes: [ 'type_id', [ fn('count', col('type_id')), 'commentCount' ]],
       group: 'type_id',
       raw: true
     })
@@ -158,7 +158,7 @@ class Admin extends Service {
   async getResponseCountByTypeId() {
     const { ctx } = this
     const idArr = await ctx.model.Response.findAll({
-      attributes: ['type_id', [fn('count', col('type_id')), 'responseCount']],
+      attributes: [ 'type_id', [ fn('count', col('type_id')), 'responseCount' ]],
       group: 'type_id',
       raw: true
     })

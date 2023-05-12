@@ -22,6 +22,7 @@ class List extends Service {
     }
     const res = await ctx.model.List.findAll({
       ..._params,
+      attributes: { exclude: [ 'article_content' ] },
       include: [
         {
           model: app.model.Type,
@@ -32,7 +33,7 @@ class List extends Service {
           as: 'file'
         }
       ],
-      order: [['addTime', 'DESC']]
+      order: [[ 'addTime', 'DESC' ]]
     })
     return res
   }
@@ -43,6 +44,7 @@ class List extends Service {
     const res = await ctx.model.List.findAll({
       limit: +params.pageSize, // 5
       offset: (+params.pageNum - 1) * params.pageSize,
+      attributes: { exclude: [ 'article_content' ] },
       include: [
         {
           model: app.model.Type,
@@ -53,7 +55,7 @@ class List extends Service {
           as: 'file'
         }
       ],
-      order: [['view_count', 'DESC']]
+      order: [[ 'view_count', 'DESC' ]]
     })
     return res
   }
@@ -78,6 +80,7 @@ class List extends Service {
       },
       limit: +params.pageSize, // 5
       offset: (+params.pageNum - 1) * params.pageSize,
+      attributes: { exclude: [ 'article_content' ] },
       include: [
         {
           model: app.model.Type,
@@ -88,7 +91,7 @@ class List extends Service {
           as: 'file'
         }
       ],
-      order: [['addTime', 'DESC']]
+      order: [[ 'addTime', 'DESC' ]]
     })
     return res
   }
@@ -101,6 +104,7 @@ class List extends Service {
       },
       limit: +params.pageSize, // 5
       offset: (+params.pageNum - 1) * params.pageSize,
+      attributes: { exclude: [ 'article_content' ] },
       include: [
         {
           model: app.model.Type,
@@ -111,7 +115,7 @@ class List extends Service {
           as: 'file'
         }
       ],
-      order: [['view_count', 'DESC']]
+      order: [[ 'view_count', 'DESC' ]]
     })
     return res
   }

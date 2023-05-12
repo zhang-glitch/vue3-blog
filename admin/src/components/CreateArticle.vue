@@ -213,12 +213,12 @@ export default defineComponent({
           error(msg) {
             this.$message.error(msg)
           },
-          filename(name) {
-            return name
-            .replace(/[^(a-zA-Z0-9\u4e00-\u9fa5\.)]/g, '')
-            .replace(/[\?\\/:|<>\*\[\]\(\)\$%\{\}@~]/g, '')
-            .replace('/\\s/g', '')
-          },
+          // filename(name) {
+          //   return name
+          //   .replace(/[^(a-zA-Z0-9\u4e00-\u9fa5\.)]/g, '')
+          //   .replace(/[\?\\/:|<>\*\[\]\(\)\$%\{\}@~]/g, '')
+          //   .replace('/\\s/g', '')
+          // },
           fieldName: 'file', // 上传的字段名称
           setHeaders() {
             return {
@@ -324,7 +324,8 @@ export default defineComponent({
           formVal.value.image = ''
           formVal.value.article_content = ''
           formVal.value.article_file_id = ''
-          window.localStorage.setItem('article', '{}')
+          // window.localStorage.setItem('article', '{}')
+          window.localStorage.removeItem('article')
           router.push('/list')
         } else {
           return false

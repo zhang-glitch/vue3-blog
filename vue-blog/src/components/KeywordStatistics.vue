@@ -1,10 +1,12 @@
 <template>
   <div class="keyword-statistics">
     <div class="keyword-statistics-wrapper container">
-      <div class="row">
+      <!-- <div class="row"> -->
+      <el-row :gutter="20">
         <!-- 996px无 -->
         <!-- 右侧总体统计 -->
-        <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
+        <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9"> -->
+        <el-col :xs="0" :sm="24" :md="18" :lg="18" :xl="18">
           <el-card shadow="always" class="statistic-charts">
             <template #header>
               <div class="keyword-header">搜索关键词分析</div>
@@ -13,9 +15,11 @@
               <vue-echarts :option="keywordStatisticsOption"></vue-echarts>
             </div>
           </el-card>
-        </div>
+        <!-- </div> -->
+        </el-col>
         <!-- 左侧分析 -->
-        <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3">
+        <!-- <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3"> -->
+        <el-col :xs="0" :sm="24" :md="6" :lg="6" :xl="6">
           <el-card shadow="always" class="keyword-list">
             <template #header>
               <div class="keyword-header">用户搜索关键词</div>
@@ -56,9 +60,11 @@
               </div>
             </div>
           </el-card>
-        </div>
+        <!-- </div> -->
+        </el-col>
+      </el-row>
+    <!-- </div> -->
       </div>
-    </div>
   </div>
 </template>
 <script>
@@ -254,6 +260,19 @@ export default defineComponent({
       line-height: 24px;
       margin-right: 15px;
     }
+  }
+}
+
+// 当小于992px时，设置高度
+@media screen and (max-width: 992px) {
+  .keyword-list:nth-child(1) {
+    margin-top: 20px;
+  }
+}
+/* margin-top: 0 */
+@media screen and (max-width: 768px) {
+  .keyword-statistics {
+    margin-top: 60px;
   }
 }
 </style>

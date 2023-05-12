@@ -120,10 +120,22 @@ export default defineComponent({
 
     getArticleList()
 
+    // 获取文章详情
+    const getArticleDetail = async (row) => {
+      const detail = await request({
+        url: `/getDetail/${row.id}`,
+        method: 'get'
+      })
+      return detail
+    }
+
     // 编辑按钮
-    const handleEdit = (row) => {
+    const handleEdit = async (row) => {
+      
+      // 请求文章详情
+      const detail =  await getArticleDetail(row)
       const article = {
-        ...row,
+        ...detail,
         type: row.type.typeName,
       }
       // 将文章保存在本地。
