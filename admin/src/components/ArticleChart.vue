@@ -179,7 +179,7 @@ export default defineComponent({
         tooltip: {
           trigger: 'axis',
           formatter(params) {
-            return `访问量: ${params[0].value[1]}`
+            return `访问量: ${params[0].value}`
           },
         },
         dataZoom: {
