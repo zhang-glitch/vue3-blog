@@ -46,6 +46,8 @@ module.exports = app => {
   router.get('/getKeywordStatistics', controller.searchstatistics.getSearchStatistics);
   // 根据id查找文章
   router.get('/getArticleById', controller.list.getArticleById);
+  // 更具id查询文章名称
+  router.get('/getArticleNameById', controller.list.getArticleNameById);
 
 
   // 后端路由

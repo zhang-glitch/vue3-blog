@@ -8,7 +8,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
-import request from '../http/request'
+// import request from '../http/request'
 
 export default defineComponent({
   setup() {
@@ -22,24 +22,30 @@ export default defineComponent({
 
     const getKeywordList = async () => {
       const _getKeywordList = await store.dispatch('getKeywordList')
-      const data = _getKeywordList.keywordList
+      const data = _getKeywordList.keywordList.slice(0, 8)
       const typesClor = ['success', 'info', 'warning', 'danger']
 
       // 数据处理
       for (let i = 0; i < data.length; i++) {
         data[i].typeColor = typesClor[i % typesClor.length]
-        data[i].articles = []
-        const article_ids = data[i].article_ids?.split(',')
-        if (article_ids.length > 0) {
-          for (const articleId of article_ids) {
-            // 请求各个关键字列表文章
-            const articleRes = await request({
-              url: `/getArticleById?id=${articleId}`,
-              method: 'get',
-            })
-            data[i].articles.push({ ...articleRes, name: articleRes?.title })
-          }
-        }
+        // data[i].articles = []
+        // const article_ids = data[i].article_ids?.split(',')
+        // if (article_ids.length > 0) {
+        //   for (const articleId of article_ids) {
+        //     // 请求各个关键字列表文章
+        //     const articleRes = await request({
+        //       url: `/getArticleById?id=${articleId}`,
+        //       method: 'get',
+        //     })
+        //     data[i].articles.push({ ...articleRes, name: articleRes?.title })
+        //   }
+        // }
+        data[i].articles = data[i].articles.map(item =>  {
+          return ({
+            ...item,
+            name: item?.title
+          })
+        })
       }
 
       // 图标数据分析

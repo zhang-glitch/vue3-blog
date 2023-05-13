@@ -53,6 +53,12 @@ class List extends BaseController {
     const data = await ctx.service.list.getArticleById(ctx.query.id)
     this.success(data)
   }
+  // 通过id查询文章名称
+  async getArticleNameById() {
+    const { ctx } = this
+    const data = await ctx.service.list.getArticleNameById(ctx.query.id)
+    this.success(data)
+  }
 }
 
 module.exports = List

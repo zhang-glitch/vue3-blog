@@ -71,7 +71,7 @@
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import request from '../http/request'
+// import request from '../http/request'
 
 export default defineComponent({
   setup() {
@@ -112,19 +112,27 @@ export default defineComponent({
       // 数据处理
       for (let i = 0; i < data.length; i++) {
         data[i].typeColor = typesClor[i % typesClor.length]
-        data[i].articles = []
-        const article_ids = data[i].article_ids?.split(',')
+        // data[i].articles = []
+        // const article_ids = data[i].article_ids?.split(',')
         const type_ids = data[i].type_ids && data[i].type_ids.split(',')
-        if (article_ids.length > 0) {
-          for (const articleId of article_ids) {
-            // 请求各个关键字列表文章
-            const articleRes = await request({
-              url: `/getArticleById?id=${articleId}`,
-              method: 'get',
-            })
-            data[i].articles.push({ ...articleRes, name: articleRes?.title })
-          }
-        }
+        // if (article_ids.length > 0) {
+        //   for (const articleId of article_ids) {
+        //     // 请求各个关键字列表文章
+        //     const articleRes = await request({
+        //       // url: `/getArticleNameById?id=${articleId}`,
+        //       url: `/getArticleById?id=${articleId}`,
+        //       method: 'get',
+        //     })
+        //     data[i].articles.push({ id: articleRes?.id, name: articleRes?.title })
+        //   }
+        // }
+
+        data[i].articles = data[i].articles.map(item =>  {
+          return ({
+            ...item,
+            name: item?.title
+          })
+        })
 
         // 统计分类
         if (type_ids && type_ids.length > 0) {
@@ -162,6 +170,9 @@ export default defineComponent({
           children: Array.isArray(item.articles) && [...item.articles], //title
         })
       }
+
+      // 截取图表数据
+      chartData.value.children = chartData.value.children.slice(0, 8)
 
       keywordList.value = data
     }

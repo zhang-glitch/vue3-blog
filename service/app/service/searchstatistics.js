@@ -1,6 +1,7 @@
 'use strict'
 
 const { Service } = require('egg')
+const fs = require('fs')
 
 class SearchStatistics extends Service {
   // 更新文章查询
@@ -34,18 +35,23 @@ class SearchStatistics extends Service {
     }
     return res
   }
+
   // 查询查询的关键词，做数据分析
   async getKeywordStatistics() {
     const { ctx } = this
-    const res = await ctx.model.Searchstatistics.findAll()
+    const res = await ctx.model.Searchstatistics.findAll({
+      order: [[ 'search_count', 'DESC' ]]
+    })
     if (res) {
       for (let i = 0; i < res.length; i++) {
-        res[i].articles = []
+        res[i].dataValues.articles = [ ]
         const article_ids = res[i].article_ids.split(',')
         if (article_ids.length > 0) {
-          for (const articleId of article_ids) {
-            const articleRes = await ctx.service.list.getArticleById(articleId)
-            res[i].articles.push(articleRes)
+          // 并发请求文章标题
+          const articleRes = await Promise.all(article_ids.map(articleId => ctx.service.list.getArticleNameById(articleId)))
+
+          if (articleRes) {
+            res[i].dataValues.articles = articleRes
           }
         }
       }

@@ -139,6 +139,17 @@ class List extends Service {
     const res = await ctx.model.List.findByPk(id)
     return res
   }
+
+  // 获取文章名称
+  async getArticleNameById(id) {
+    const { ctx } = this
+    const res = await ctx.model.List.findOne({
+      // 如果模板数据全部列出字段，我们只能通过exclude排除。不能通过include来指定获取字段
+      attributes: { exclude: [ 'article_content', 'slogan', 'image' ] },
+      where: { id }
+    });
+    return res
+  }
 }
 
 module.exports = List
