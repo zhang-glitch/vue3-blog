@@ -69,6 +69,7 @@
       <!-- 内容区域 -->
       <div class="content">
         <router-view></router-view>
+        <Footer />
       </div>
     </div>
   </div>
@@ -78,10 +79,12 @@
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Header from '../components/Header.vue'
+import Footer from "../components/Footer.vue"
 export default defineComponent({
   name: 'Home',
   components: {
     Header,
+    Footer
   },
   setup() {
     const isCollapse = ref(false)

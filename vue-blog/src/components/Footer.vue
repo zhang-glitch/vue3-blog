@@ -10,7 +10,8 @@
             </a>
           </div>
           <div class="content">
-            <p class="about-mark">@ 2021 <a href="/about">昊淼博客</a></p>
+            <p class="about-mark">@ 2023 <a href="/about">昊淼博客</a> </p>
+            <p><a href="https://beian.miit.gov.cn">豫ICP备2023010223号</a></p>
             <p>记录美好的生活经历，欢迎交流</p>
           </div>
         </div>
@@ -213,7 +214,8 @@ export default defineComponent({
         }
       }
       .about-mark {
-        margin-bottom: 10px;
+        /* margin-bottom: 5px; */
+        vertical-align: bottom;
       }
     }
   }

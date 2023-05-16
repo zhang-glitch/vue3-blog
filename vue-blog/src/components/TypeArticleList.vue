@@ -144,6 +144,13 @@ export default defineComponent({
     const getArticleList = async (dispatchName, params) => {
       const _articleList = await store.dispatch(dispatchName, params)
       articleList.value = _articleList.articleData
+
+      // 判断是否有加载更多
+      if(_articleList?.articleData?.length < size.value) {
+        isLoadMore.value = false
+      }else {
+        isLoadMore.value = true
+      }
     }
 
     // 获取第一次的请求
@@ -162,18 +169,28 @@ export default defineComponent({
       // 将最后一条数据插入到文章列表中
       articleAllCount.value > articleList.value.length &&
         articleList.value.push(..._articleList.articleData)
+
+      // 判断是否有加载更多
+      if(_articleList?.articleData?.length < size.value) {
+        isLoadMore.value = false
+      }else {
+        isLoadMore.value = true
+      }
     }
 
     // 改变列表排列方式,默认为最新排列，为0
-    const rankIndex = ref(1)
+    const rankIndex = ref(0)
     const rankTitle = ref('切换为热门排序')
     const handleRankWay = () => {
       // 每次切换tab栏时，显示加载更多按钮
-      isLoadMore.value = true
+      // isLoadMore.value = true
       // 切换排序方式时，重置num值
       num.value = 1
+      // rankIndex 0 最新
+      // rankIndex 1 热门
       if (rankIndex.value == 0) {
-        rankTitle.value = '切换为热门排序'
+        // rankTitle.value = '切换为热门排序'
+        rankTitle.value = '切换为时间排序'
         rankIndex.value = 1
         // // 这里请求会有问题，因为用了if判断。用watch
         // if (listActiveIndex.value === 0) {
@@ -189,7 +206,8 @@ export default defineComponent({
         //   })
         // }
       } else {
-        rankTitle.value = '切换为时间排序'
+        // rankTitle.value = '切换为时间排序'
+        rankTitle.value = '切换为热门排序'
         rankIndex.value = 0
         // if (listActiveIndex.value === 0) {
         //   console.log('=========全部数据的热门请求')
@@ -229,6 +247,7 @@ export default defineComponent({
       } else {
         // 这里是请求分类的文章列表
         if (index == 0) {
+          console.log("======", index, "最新")
           getArticleList('getNewArticleList', {
             pageSize: size.value,
             id: listActiveIndex.value,
@@ -301,12 +320,12 @@ export default defineComponent({
         }
       }
 
-      // 如果文章总数大于文章列表总数。则加载更多。否者不显示
-      if (articleAllCount.value > articleList.value.length) {
-        isLoadMore.value = true
-      } else {
-        isLoadMore.value = false
-      }
+      // // 如果文章总数大于文章列表总数。则加载更多。否者不显示
+      // if (articleAllCount.value > articleList.value.length) {
+      //   isLoadMore.value = true
+      // } else {
+      //   isLoadMore.value = false
+      // }
     }
 
     return {
