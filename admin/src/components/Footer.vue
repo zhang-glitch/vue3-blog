@@ -16,11 +16,11 @@ export default defineComponent({
   .admin-footer {
     height: 57px;
     line-height: 57px;
-    font-size: 16px;
+    font-size: 14px;
     display: flex;
     justify-content: center;
-    /* border-top: 4px solid #ccc;  */
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5); /* 设置一个沿着Y轴向下偏移3像素，模糊半径为5像素的灰色阴影*/
+    border-top: 2px solid rgba(0, 0, 0, 0.1); 
+    /* box-shadow: 5px -2px 10px rgba(0, 0, 0, 0.5);  */
 
     .about-mark a{
       color: #1890ff;

@@ -6,6 +6,7 @@
       row-key="id"
       stripe
       :tree-props="{ children: 'responseList' }"
+      height="500"
     >
       <el-table-column>
         <template #header>
@@ -163,8 +164,17 @@ export default defineComponent({
 
 <style lang="scss">
 .comment-response {
+  width: 100%;
+  /* height: 100%; */
+  height: 615px;
+  /* 这里通过绝对定位去解决横向滚动条问题 */
+  position: relative;
+
   .el-table {
     flex: 1;
+    /* 让右边贴着浏览器边框 */
+    position: absolute;
+    right: 0;
   }
 
   .pagination {
@@ -172,11 +182,11 @@ export default defineComponent({
     justify-content: flex-end;
     height: 55px;
     margin-top: 30px;
-    /* .el-pagination {
+    .el-pagination {
       position: absolute;
-      bottom: 0;
+      bottom: 50px;
       right: 20px;
-    } */
+    }
   }
 }
 </style>

@@ -17,7 +17,7 @@
       </div>
       <div class="response-main">
         <div class="comment-item"
-             v-for="response in responses"
+             v-for="response in comments.responseList"
              :key="response.id">
           <div class="comment-avatar">
             <el-avatar src="/response.jpg"></el-avatar>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue'
+import { defineComponent } from 'vue'
 import ResponseInput from './ResponseInput.vue'
 import emitter from 'util/emitter.js'
 import moment from 'moment'
@@ -48,8 +48,9 @@ export default defineComponent({
   components: {
     ResponseInput,
   },
-  setup(props) {
-    const responses = reactive(props.comments.responseList)
+  setup() {
+    // 这里取出props，改变时，不会更新
+    // const responses = reactive(props.comments.responseList)
     // 触发回复按钮
     const handleResponse = (commentId) => {
       emitter.emit('handleIsResponseInput', {
@@ -58,7 +59,7 @@ export default defineComponent({
       })
     }
     return {
-      responses,
+      // responses,
       handleResponse,
       moment,
     }

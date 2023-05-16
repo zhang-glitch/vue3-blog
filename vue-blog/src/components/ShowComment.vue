@@ -23,6 +23,7 @@
 
 <script>
 import { defineComponent, computed } from 'vue'
+// import { defineComponent, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import CommentResponse from './CommentResponse.vue'
@@ -36,7 +37,7 @@ export default defineComponent({
     // 请求评论数据
     const store = useStore()
     const route = useRoute()
-
+    // const commentList = ref([])
     const getCommentList = async function () {
       await store.dispatch('getCommentList', {
         id: route.query.id,
@@ -46,6 +47,9 @@ export default defineComponent({
     getCommentList()
 
     const commentList = computed(() => store.state.commentList)
+    // watch(() => store.state.commentList, (newVal) => {
+    //   commentList.value = newVal
+    // })
     return {
       commentList,
     }
