@@ -7,8 +7,8 @@
              autoplay
              controls>播放</audio> -->
       <!-- 头部背景 -->
-      <background-img :imgUrl="'/indexbg.jpg'"></background-img>
-      <keyword-statistics></keyword-statistics>
+      <background-img :imgUrl="'/indexbg.jpg'" v-if="!isMobile()"></background-img>
+      <keyword-statistics v-if="!isMobile()"></keyword-statistics>
       <!-- bannner -->
       <!-- <banner-component></banner-component> -->
       <!-- 文章主体 -->
@@ -25,6 +25,7 @@ import BackgroundImg from 'components/BackgroundImg.vue'
 import LayOut from 'components/LayOut.vue'
 import ArticleList from 'components/ArticleList.vue'
 import KeywordStatistics from '../components/KeywordStatistics.vue'
+import isMobile from "../util/isMobile"
 
 export default defineComponent({
   name: 'index',
@@ -64,6 +65,7 @@ export default defineComponent({
 
     return {
       tabsTitle,
+      isMobile
     }
   },
 })

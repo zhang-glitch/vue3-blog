@@ -36,7 +36,7 @@
 
             </el-card>
           </div>
-          <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3 asist-bar">
+          <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3 asist-bar" v-if="!isMobile()">
             <blog-author></blog-author>
           </div>
         </div>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, watch, computed } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import TopImage from 'components/TopImage.vue'
 import LayOut from 'components/LayOut.vue'
 import ArticleListItem from 'components/ArticleListItem.vue'
@@ -54,6 +54,7 @@ import BlogAuthor from 'components/BlogAuthor.vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import LoadMore from '../components/LoadMore.vue'
+import isMobile from '../util/isMobile'
 
 export default defineComponent({
   name: 'search',
@@ -81,6 +82,12 @@ export default defineComponent({
       })
 
       searchArticleList.value = _article.articleData
+      // 判断是否展示加载更多
+      if (_article?.articleData?.length >= size.value) {
+        isLoadMore.value = true
+      } else {
+        isLoadMore.value = false
+      }
     }
     getArticleList('getSearchNewList')
 
@@ -109,7 +116,8 @@ export default defineComponent({
     const rankTitle = ref('切换为热门排序')
     const handleRankWay = () => {
       // 切换时,修改isLoadMore为true
-      isLoadMore.value = true
+      // isLoadMore.value = true
+      isLoadMore.value = false
       // 切换排列方式时，重置num值
       num.value = 1
       if (rankIndex.value == 0) {
@@ -126,8 +134,8 @@ export default defineComponent({
     }
 
     // 获取文章总数
-    const articleAllCount = computed(() => store.state.count)
-    const isLoadMore = ref(true)
+    // const articleAllCount = computed(() => store.state.count)
+    const isLoadMore = ref(false)
 
     // 处理加载更多
     const handleLoadMore = () => {
@@ -142,11 +150,11 @@ export default defineComponent({
       }
 
       // 如果文章总数大于文章列表总数。则加载更多。否者不显示
-      if (articleAllCount.value > searchArticleList.value.length) {
-        isLoadMore.value = true
-      } else {
-        isLoadMore.value = false
-      }
+      // if (articleAllCount.value > searchArticleList.value.length) {
+      //   isLoadMore.value = true
+      // } else {
+      //   isLoadMore.value = false
+      // }
     }
 
     return {
@@ -156,6 +164,7 @@ export default defineComponent({
       handleLoadMore,
       isLoadMore,
       route,
+      isMobile
     }
   },
 })

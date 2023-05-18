@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list">
+  <div :class="['article-list', isMobile() ? 'ismobile-article-list' : '']">
     <div class="article-wrapper container">
       <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
@@ -23,7 +23,7 @@
             </el-tabs>
           </el-card>
         </div>
-        <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3 asist-bar">
+        <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3 asist-bar" v-if="!isMobile()">
           <blog-author></blog-author>
           <School />
           <Advert />
@@ -41,6 +41,8 @@ import BlogAuthor from './BlogAuthor.vue'
 import School from './School.vue'
 import Advert from './Advert.vue'
 import LoadMore from './LoadMore.vue'
+
+import isMobile from "../util/isMobile"
 
 export default defineComponent({
   name: 'ArticleList',
@@ -140,6 +142,7 @@ export default defineComponent({
       articleList,
       handleLoadMore,
       isLoadMore,
+      isMobile
     }
   },
 })
@@ -182,6 +185,13 @@ export default defineComponent({
 @media screen and (max-width: 992px) {
   .asist-bar {
     display: none;
+  }
+}
+
+/* margin-top: 0 */
+@media screen and (max-width: 768px) {
+  .ismobile-article-list {
+    margin-top: 60px;
   }
 }
 </style>

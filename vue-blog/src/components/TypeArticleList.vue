@@ -53,7 +53,7 @@
             ></el-empty>
           </el-card>
         </div>
-        <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3 asist-bar">
+        <div class="col-0 col-sm-0 col-md-0 col-lg-3 col-xl-3 asist-bar" v-if="!isMobile()">
           <blog-author></blog-author>
           <School />
           <Advert />
@@ -72,6 +72,7 @@ import ArticleListItem from './ArticleListItem.vue'
 import School from './School.vue'
 import Advert from './Advert.vue'
 import LoadMore from './LoadMore.vue'
+import isMobile from '../util/isMobile'
 
 export default defineComponent({
   name: 'ArticleList',
@@ -337,6 +338,7 @@ export default defineComponent({
       articleList,
       handleLoadMore,
       isLoadMore,
+      isMobile
     }
   },
 })

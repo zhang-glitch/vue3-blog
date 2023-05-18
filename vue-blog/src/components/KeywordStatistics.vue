@@ -242,6 +242,10 @@ export default defineComponent({
   .keyword-statistics-wrapper {
     justify-content: space-between;
 
+    .statistic-charts {
+      height: 100%;
+    }
+
     .total-article-chart {
       width: 100%;
       height: 330px;
